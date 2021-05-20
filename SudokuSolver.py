@@ -24,6 +24,10 @@ def putNum(col, row, x, puzzle):
 
 # Goes through each slot in the 9 by 9 array, seeing what values can be placed
 def sudoku(puzzle):
+
+    # declares variable to keep track of empty slots left
+    slotsLeft = 0
+
     for x in range(9):
         for y in range(9):
 
@@ -37,14 +41,14 @@ def sudoku(puzzle):
                 # If there is only one possible fit for the slot...
                 if numOfFits == 1:
                     puzzle[x][y] = correct
+                else:
+                    # We have an empty slot if we cannot guarantee a value that must be in the slot
+                    slotsLeft = slotsLeft + 1
 
-    # Goes through the puzzle to see if there are any empty slots left
-    for x in range(9):
-        for y in range(9):
-
-            # If there are, we make a recursive call
-            if puzzle[x][y] == 0:
-                sudoku(puzzle)
+     # If there are still empty slots, we make a recursive call
+    if slotsLeft != 0:
+        sudoku(puzzle)
+                
     return puzzle
 
 # To use the program, input your Sudoku puzzle into the 9 by 9 array below 
